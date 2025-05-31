@@ -1,0 +1,26 @@
+name: Analyze UiPath Project
+description: 'Steps to Analyze UiPath Project to make sure that rules are being followed'
+
+branding:
+  icon: chevrons-right
+  color: orange
+  
+inputs:
+  AutomationOpsRulePath:
+    required: false
+    description: The location where your Automation Ops Rule is saved
+    default: '${{ github.workspace }}/AutomationOpsRule.json'
+  ProjectPath:
+    required: true
+    description: Location of UiPath project.json
+    default: ${{ github.workspace }}/project.json
+
+runs:
+  using: "composite"
+  steps:
+    - name: Analyze UiPath Project
+      shell: bash
+      run: |
+        cd ${{ github.workspace }}/uipcli/tools
+        ./uipcli '${{ inputs.ProjectPath }}' --resultPath '${{ github.workspace }}/results.json' --governanceFilePath '${{ inputs.AutomationOpsRulePath }}'
+        cat '${{ github.workspace }}/results.json'

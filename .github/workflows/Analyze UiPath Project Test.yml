@@ -1,0 +1,31 @@
+name: Test Download UiPath CLI
+
+on: [push]
+
+jobs:
+    clone:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Download UiPath CLI
+              uses: Path-Findr/Download-UiPath-CLI@v1
+
+            - name: Download UiPath Automation Ops Rule
+              id: AutomationOpsRule
+              uses: Path-Findr/Download-UiPath-AutomationOps-Rule@v1
+              with:
+                AutomationOpsRuleName: 'Developer'
+                OrchestratorName: 'pathfindr'
+                ClientID: ${{ secrets.UIPATH_CLIENT_ID }}
+                ClientSecret: ${{ secrets.UIPATH_CLIENT_SECRET }}
+
+            - name: Analyze Project
+              uses: ./
+              with:
+                AutomationOpsRulePath: ${{steps.AutomationOpsRule.outputs.OutputFilePath}}
+                ProjectPath: ${{github.workspace}}/UiPathProject/project.json
+                
+
+
+            
