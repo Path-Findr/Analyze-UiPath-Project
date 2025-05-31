@@ -22,5 +22,5 @@ runs:
       shell: bash
       run: |
         cd ${{ github.workspace }}/uipcli/tools
-        ./uipcli '${{ inputs.ProjectPath }}' --resultPath '${{ github.workspace }}/results.json' --governanceFilePath '${{ inputs.AutomationOpsRulePath }}'
+        ./uipcli.exe '${{ inputs.ProjectPath }}' --resultPath '${{ github.workspace }}/results.json' --governanceFilePath '${{ inputs.AutomationOpsRulePath }}'
         cat '${{ github.workspace }}/results.json'
