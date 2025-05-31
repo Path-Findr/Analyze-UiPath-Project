@@ -19,6 +19,7 @@ jobs:
                 OrchestratorName: 'pathfindr'
                 ClientID: ${{ secrets.UIPATH_CLIENT_ID }}
                 ClientSecret: ${{ secrets.UIPATH_CLIENT_SECRET }}
+                Scope: OR.Administration
 
             - name: Analyze Project
               uses: ./
