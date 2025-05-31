@@ -17,9 +17,10 @@ jobs:
               with:
                 AutomationOpsRuleName: 'Developer'
                 OrchestratorName: 'pathfindr'
-                ClientID: ${{ secrets.UIPATH_CLIENT_ID }}
-                ClientSecret: ${{ secrets.UIPATH_CLIENT_SECRET }}
+                ClientID: ${{ secrets.UIPATHEXTERNALAPPCLIENT }}
+                ClientSecret: ${{ secrets.UIPATHEXTERNALAPPSECRET }}
                 Scope: OR.Administration
+                OutputFileFolder: ${{ github.workspace }}
 
             - name: Analyze Project
               uses: ./
