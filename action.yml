@@ -21,5 +21,13 @@ runs:
     - name: Analyze UiPath Project
       shell: bash
       run: |
-        uipcli/tools/uipcli package analyze '${{ inputs.ProjectPath }}' --resultPath '${{ github.workspace }}/results.json' --governanceFilePath '${{ inputs.AutomationOpsRulePath }}'
+        uipcli='dotnet "uipcli/tools/uipcli.dll"'
+
+        case "$OSTYPE" in
+          msys*)    uipcli="uipcli/tools/uipcli.exe" ;;
+          cygwin*)  uipcli="uipcli/tools/uipcli.exe" ;;
+          *)        uipcli='dotnet "uipcli/tools/uipcli.dll"' ;;
+        esac
+
+        $uipcli package analyze '${{ inputs.ProjectPath }}' --resultPath '${{ github.workspace }}/results.json' --governanceFilePath '${{ inputs.AutomationOpsRulePath }}'
         cat '${{ github.workspace }}/results.json'
